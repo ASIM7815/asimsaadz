@@ -1,203 +1,237 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Subject Notes</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        /* Custom CSS for animations and theme */
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f0f4f8; /* A soft, light blue-gray background */
-            color: #1e293b; /* A dark slate color for text for better readability */
-        }
-
-        /* Typing animation for the main header */
-        .typing-effect {
-            width: 0;
-            overflow: hidden; /* Ensures the text is not seen until the animation starts */
-            white-space: nowrap; /* Keeps the text on a single line */
-            
-           
-        }
-
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
-        }
-
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: #3b82f6; }
-        }
-
-        /* Staggered fade-in animation for subject cards */
-        .subject-card {
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeIn 0.6s ease-out forwards;
-        }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* Applying animation delays to each card for a staggered effect */
-        .subject-card:nth-child(1) { animation-delay: 0.2s; }
-        .subject-card:nth-child(2) { animation-delay: 0.4s; }
-        .subject-card:nth-child(3) { animation-delay: 0.6s; }
-        .subject-card:nth-child(4) { animation-delay: 0.8s; }
-        .subject-card:nth-child(5) { animation-delay: 1.0s; } /* Delay for the new card */
-
-        /* Custom styles for the card image containers for a consistent look */
-        .card-image-container {
-            height: 200px;
-            overflow: hidden;
-        }
-
-        .card-image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Ensures images cover the area without distortion */
-            transition: transform 0.4s ease-in-out;
-        }
-        
-        .subject-card:hover .card-image-container img {
-            transform: scale(1.1); /* Zoom effect on hover */
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>smartnotes - Mobile</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: "Inter", "Poppins", sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    body.dark {
+      background-color: #1a202c;
+      color: #e2e8f0;
+    }
+    #loading-screen {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      animation: fadeOutDelay 2s forwards;
+    }
+    @keyframes fadeOutDelay {
+      0%, 80% { opacity: 1; }
+      100% { opacity: 0; visibility: hidden; }
+    }
+    .animate-bounce {
+      animation: bounce 1s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(-10%); }
+      50% { transform: translateY(0); }
+    }
+    .page-section {
+      display: none;
+      opacity: 0;
+      transform: translateX(100%);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .page-section.active {
+      display: block;
+      opacity: 1;
+      transform: translateX(0);
+    }
+  </style>
 </head>
-<body class="antialiased">
+<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-200">
 
-    <!-- Main Container -->
-    <div class="container mx-auto px-4 py-8 md:py-16">
-
-        <!-- Header Section -->
-        <header class="text-center mb-12 md:mb-16">
-            <h1 id="main-title" class="text-4xl md:text-6xl font-bold text-slate-800 mb-2">
-                <!-- This text will be replaced by the animated title -->
-            </h1>
-            <p class="text-lg md:text-xl text-slate-500">Your central hub for all study materials.</p>
-        </header>
-
-        <!-- Subjects Grid -->
-        <main class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-
-           <!-- Card 1: Mathematics -->
-<a href="maths.html" class="block">
-  <div class="subject-card bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
-    <div class="card-image-container">
-      <img src="https://images.unsplash.com/photo-1509228468518-180dd4864904?q=80&w=2070&auto=format&fit=crop" alt="Mathematics illustration"
-           onerror="this.onerror=null;this.src='https://placehold.co/600x400/3b82f6/ffffff?text=Math';">
-    </div>
-    <div class="p-6">
-      <h2 class="text-2xl font-bold text-blue-500 mb-2">MATHEMATICS</h2>
-      <p class="text-slate-600 mb-4">Explore concepts from algebra, calculus, and geometry.</p>
-      <div class="inline-block bg-blue-500 text-white font-semibold px-6 py-2 rounded-lg shadow-md hover:bg-blue-600 transition-colors duration-300">View Notes</div>
-    </div>
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <div class="text-white text-4xl font-bold animate-bounce">Learning Hub</div>
   </div>
-</a>
 
-<!-- Card 2: C-Programming (PPS) -->
-<a href="cp.html" class="block">
-  <div class="subject-card bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
-    <div class="card-image-container">
-      <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop" alt="C-Programming code on a screen"
-           onerror="this.onerror=null;this.src='https://placehold.co/600x400/22c55e/ffffff?text=C-Lang';">
+  <!-- Main Container -->
+  <div id="app-container" class="min-h-screen flex flex-col hidden">
+
+  <!-- Mobile Navbar -->
+<nav class="fixed top-0 left-0 right-0 backdrop-blur-md bg-white/90 dark:bg-gray-800/90 shadow-md z-50 flex items-center justify-between px-4 py-3">
+  
+  <!-- Invisible spacer to balance layout -->
+  <div class="w-10 h-10"></div>
+
+  <!-- Larger Centered Logo -->
+  <a href="/" id="logo-brand" class="mx-auto">
+    <img src="smartnoteslogo.png.jpg" alt="Smart Notes Logo" class="h-14 w-14 rounded-xl shadow-lg" />
+  </a>
+
+  <!-- Mobile Menu Button -->
+  <button id="mobile-menu-button" class="focus:outline-none" aria-label="Toggle menu">
+    <svg id="mobile-menu-icon" class="w-7 h-7 text-gray-900 dark:text-white" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+      <path d="M4 6h16M4 12h16M4 18h16"></path>
+    </svg>
+  </button>
+</nav>
+
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu bg-white dark:bg-gray-800 mt-14 rounded-b-2xl shadow-lg p-4 space-y-3 hidden">
+      <button data-page="home" class="w-full text-left px-4 py-2 rounded-lg text-gray-800 dark:text-gray-200 hover:bg-purple-600 hover:text-white transition">Home</button>
+
+      <!-- Notes Dropdown -->
+      <details class="group rounded-lg" open>
+        <summary class="px-4 py-2 cursor-pointer select-none flex justify-between items-center text-gray-800 dark:text-gray-200 hover:bg-purple-600 hover:text-white rounded-lg">
+          Notes
+          <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+            <path d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </summary>
+        <nav class="pl-6 mt-2 space-y-1">
+          <a href="maths.html">MATHEMATICS</a>
+          <a href="https://asim7815.github.io/c-programming/" target="_blank" rel="noopener" class="block px-3 py-1 rounded hover:bg-purple-600 hover:text-white text-gray-700 dark:text-gray-300">C-PROGRAMMING</a>
+          <a href="https://asim7815.github.io/engineeringphysics/" target="_blank" rel="noopener" class="block px-3 py-1 rounded hover:bg-purple-600 hover:text-white text-gray-700 dark:text-gray-300">PHYSICS</a>
+          <a href="https://asim7815.github.io/chemistry/" target="_blank" rel="noopener" class="block px-3 py-1 rounded hover:bg-purple-600 hover:text-white text-gray-700 dark:text-gray-300">CHEMISTRY</a>
+          <a href="https://asim7815.github.io/BEE/" target="_blank" rel="noopener" class="block px-3 py-1 rounded hover:bg-purple-600 hover:text-white text-gray-700 dark:text-gray-300">BEE</a>
+        </nav>
+      </details>
     </div>
-    <div class="p-6">
-      <h2 class="text-2xl font-bold text-green-500 mb-2">C-PROGRAMMING (PPS)</h2>
-      <p class="text-slate-600 mb-4">Master the fundamentals of programming and problem-solving.</p>
-      <div class="inline-block bg-green-500 text-white font-semibold px-6 py-2 rounded-lg shadow-md hover:bg-green-600 transition-colors duration-300">View Notes</div>
-    </div>
+
+    <!-- Main Content -->
+    <main class="flex-grow pt-20 px-4">
+
+      <!-- Home Section -->
+      <section id="home-page" class="page-section active">
+        <div class="bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl p-8 text-center text-white shadow-lg relative overflow-hidden">
+          <h1 class="text-4xl font-extrabold mb-4">WELCOME TO SMART-NOTES</h1>
+          <p id="quote-text" class="mb-6 opacity-90 italic text-lg max-w-md mx-auto transition-opacity duration-700">"The beautiful thing about learning is that no one can take it away from you."</p>
+          <button class="bg-white text-blue-600 font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-gray-100 transition-transform transform hover:scale-105">Start Learning Now!</button>
+          <span class="absolute top-[-40px] left-[-40px] w-24 h-24 bg-white opacity-10 rounded-full animate-float-1"></span>
+          <span class="absolute bottom-[-50px] right-[-50px] w-36 h-36 bg-white opacity-10 rounded-full animate-float-2"></span>
+          <span class="absolute top-[50%] left-[20%] w-16 h-16 bg-white opacity-10 rounded-full animate-float-3"></span>
+        </div>
+
+       <!-- Colorful Resources Card -->
+<div class="bg-gradient-to-br from-purple-400 via-pink-400 to-yellow-300 dark:from-purple-700 dark:via-pink-600 dark:to-yellow-400 rounded-2xl shadow-xl mt-12 p-6 max-w-md mx-auto text-white hover:scale-105 transition-transform duration-300 cursor-pointer select-none">
+  <a href="https://asim7815.github.io/NOTES/" class="block text-center">
+    
+    <!-- Image Instead of Emoji -->
+    <img src="https://cdn-icons-png.flaticon.com/512/29/29302.png" alt="Books" class="w-20 h-20 mx-auto mb-4 rounded-xl shadow-md hover:shadow-xl transition duration-300">
+    
+    <!-- Title -->
+    <h2 class="text-2xl font-bold mb-1 drop-shadow">B.E 1st Year Notes</h2>
+    
+    <!-- Description -->
+    <p class="text-sm text-white/90">Osmania University . common subjects for all branches</p>
+  </a>
+</div>
+
+
+        <!-- Video Section -->
+        <div class="mt-16 text-center max-w-md mx-auto">
+          <h2 class="text-2xl font-bold mb-4">EXAMS TIPS</h2>
+          <a href="https://youtu.be/DHXPV2X4Acs?si=mAxdaA8ajGzNmZb_" target="_blank" rel="noopener">
+            <img src="VIDEO.png" alt="Video Thumbnail" class="mx-auto rounded-lg shadow-lg max-w-full h-auto" />
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 dark:bg-gray-900 text-gray-300 py-6 px-4 text-center mt-8 rounded-t-3xl">
+      <p>&copy; <span id="current-year"></span> <strong>SMART-NOTES</strong>. All rights reserved.</p>
+      <p class="text-sm mt-1">Designed with <span class="text-red-500">❤️</span> for students.</p>
+       <p class="text-sm mt-1"><span class="text-red-500"></span>FROM MOHD ASIM SAAD</p>
+    </footer>
   </div>
-</a>
 
-<!-- Card 3: Physics -->
-<a href="physics.html" class="block">
-  <div class="subject-card bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
-    <div class="card-image-container">
-      <img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?q=80&w=1974&auto=format&fit=crop" alt="Physics concept illustration"
-           onerror="this.onerror=null;this.src='https://placehold.co/600x400/8b5cf6/ffffff?text=Physics';">
-    </div>
-    <div class="p-6">
-      <h2 class="text-2xl font-bold text-purple-500 mb-2">PHYSICS</h2>
-      <p class="text-slate-600 mb-4">Uncover the laws of motion, energy, and the universe.</p>
-      <div class="inline-block bg-purple-500 text-white font-semibold px-6 py-2 rounded-lg shadow-md hover:bg-purple-600 transition-colors duration-300">View Notes</div>
-    </div>
-  </div>
-</a>
+  <!-- JS -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const loadingScreen = document.getElementById("loading-screen");
+      const appContainer = document.getElementById("app-container");
+      const body = document.body;
+      const mobileMenuButton = document.getElementById("mobile-menu-button");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const mobileMenuIcon = document.getElementById("mobile-menu-icon");
+      const currentYearSpan = document.getElementById("current-year");
+      const quoteText = document.getElementById("quote-text");
+      const quotes = [
+        "The beautiful thing about learning is that no one can take it away from you.",
+        "Education is the most powerful weapon which you can use to change the world.",
+        "The mind is not a vessel to be filled, but a fire to be kindled.",
+        "Live as if you were to die tomorrow. Learn as if you were to live forever.",
+      ];
+      let quoteIndex = 0;
 
-<!-- Card 4: Chemistry -->
-<a href="chemistry.html" class="block">
-  <div class="subject-card bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
-    <div class="card-image-container">
-      <img src="https://images.unsplash.com/photo-1554475901-4538ddfbccc2?q=80&w=2072&auto=format&fit=crop" alt="Chemistry lab equipment"
-           onerror="this.onerror=null;this.src='https://placehold.co/600x400/f97316/ffffff?text=Chemistry';">
-    </div>
-    <div class="p-6">
-      <h2 class="text-2xl font-bold text-orange-500 mb-2">CHEMISTRY</h2>
-      <p class="text-slate-600 mb-4">Dive into the world of atoms, molecules, and chemical reactions.</p>
-      <div class="inline-block bg-orange-500 text-white font-semibold px-6 py-2 rounded-lg shadow-md hover:bg-orange-600 transition-colors duration-300">View Notes</div>
-    </div>
-  </div>
-</a>
+      loadingScreen.addEventListener("animationend", () => {
+        loadingScreen.style.display = "none";
+        appContainer.classList.remove("hidden");
+      });
 
-<!-- Card 5: BEE (Basic Electrical Engineering) -->
-<a href="bee.html" class="block">
-  <div class="subject-card bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
-    <div class="card-image-container">
-      <img src="BEE.png" alt="Electronic components on a breadboard"
-           onerror="this.onerror=null;this.src='https://placehold.co/600x400/f59e0b/ffffff?text=BEE';">
-    </div>
-    <div class="p-6">
-      <h2 class="text-2xl font-bold text-amber-500 mb-2">BEE (BASIC ELECTRICAL ENGG)</h2>
-      <p class="text-slate-600 mb-4">Understand circuits, currents, and electrical systems.</p>
-      <div class="inline-block bg-amber-500 text-white font-semibold px-6 py-2 rounded-lg shadow-md hover:bg-amber-600 transition-colors duration-300">View Notes</div>
-    </div>
-  </div>
-</a>
-<!-- Card 5: BEE (Basic Electrical Engineering) -->
-<a href="em.html" class="block">
-  <div class="subject-card bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
-    <div class="card-image-container">
-      <img src="EM.ipg.jpg" alt="Electronic components on a breadboard"
-           onerror="this.onerror=null;this.src='https://placehold.co/600x400/f59e0b/ffffff?text=BEE';">
-    </div>
-    <div class="p-6">
-      <h2 class="text-2xl font-bold text-amber-500 mb-2">ENGINEERING-MECHANICS</h2>
-      <p class="text-slate-600 mb-4">The Force Behind Every Motion</p>
-      <div class="inline-block bg-amber-500 text-white font-semibold px-6 py-2 rounded-lg shadow-md hover:bg-amber-600 transition-colors duration-300">View Notes</div>
-    </div>
-  </div>
-</a>
+      mobileMenuButton.addEventListener("click", () => {
+        const isOpen = mobileMenu.classList.toggle("hidden") === false;
+        mobileMenuButton.setAttribute("aria-expanded", isOpen);
+        mobileMenuIcon.innerHTML = isOpen
+          ? `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>`
+          : `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>`;
+      });
 
-
-        </main>
-    </div>
-
-    <script>
-        // JavaScript for the typing animation
-        document.addEventListener('DOMContentLoaded', function() {
-            const titleText = "NOTES";
-            const titleElement = document.getElementById('main-title');
-            
-            // Create a span for the typing effect to live inside the h1
-            const typingSpan = document.createElement('span');
-            typingSpan.className = 'typing-effect';
-            titleElement.appendChild(typingSpan);
-            
-            // Set the text content of the span
-            typingSpan.textContent = titleText;
+      mobileMenu.querySelectorAll("[data-page]").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          const page = btn.getAttribute("data-page");
+          document.querySelectorAll(".page-section").forEach((section) => {
+            section.classList.toggle("active", section.id === `${page}-page`);
+          });
+          mobileMenu.classList.add("hidden");
+          mobileMenuIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>`;
+          mobileMenuButton.setAttribute("aria-expanded", "false");
+          window.scrollTo({ top: 0, behavior: "smooth" });
         });
-    </script>
+      });
 
+      if (currentYearSpan) {
+        currentYearSpan.textContent = new Date().getFullYear();
+      }
+
+      if (quoteText) {
+        setInterval(() => {
+          quoteText.style.opacity = "0";
+          setTimeout(() => {
+            quoteIndex = (quoteIndex + 1) % quotes.length;
+            quoteText.textContent = `"${quotes[quoteIndex]}"`;
+            quoteText.style.opacity = "1";
+          }, 500);
+        }, 5000);
+      }
+    });
+  </script>
+
+  <style>
+    @keyframes float1 {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(10px, 20px); }
+    }
+    @keyframes float2 {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(-15px, -25px); }
+    }
+    @keyframes float3 {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(20px, -10px); }
+    }
+    .animate-float-1 { animation: float1 10s ease-in-out infinite; }
+    .animate-float-2 { animation: float2 12s ease-in-out infinite; }
+    .animate-float-3 { animation: float3 8s ease-in-out infinite; }
+  </style>
 </body>
 </html>
