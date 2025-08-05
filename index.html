@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OU Notes - CSE & Civil</title>
+    <!-- Add this inside the <head> tag of your HTML -->
+<link rel="icon" href="ASIM.png" type="image/x-icon">
+<link rel="shortcut icon" href="ASIM.png" type="image/x-icon">
+
+
+    <title>ASIMZ</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Three.js CDN for the 3D animation -->
@@ -45,6 +50,15 @@
         }
     </style>
 </head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BJ6SRVCM82"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-BJ6SRVCM82');
+</script>
 <body class="text-white">
 
     <!-- The Canvas for the 3D animation -->
@@ -108,69 +122,36 @@
                 </a>
             </div>
         </main>
-
-        <!-- Notes Sections -->
-        <section id="notes-sections" class="container mx-auto px-4 py-16 md:py-24">
-  <!-- CSE Section - Entire Section Clickable -->
-<a href="notes.html" class="block group">
-    <div id="cse" class="flex flex-col md:flex-row items-center bg-gray-800 rounded-xl shadow-lg p-6 md:p-10 mb-12 transition-transform transform group-hover:scale-[1.01]">
-        <div class="md:w-1/2 md:pr-10 mb-6 md:mb-0">
-            <!-- Image -->
-            <div class="w-full h-64 bg-gray-700 rounded-lg flex items-center justify-center p-4 relative overflow-hidden">
-                <img src="CS.jpg" alt="Computer Science Engineering" class="object-cover w-full h-full rounded-lg">
-                <p class="playfair-display text-2xl md:text-3xl text-gray-100 text-center absolute inset-0 flex items-center justify-center bg-black bg-opacity-40">
-                    Computer Science<br>&<br>Engineering
-                </p>
-                <svg xmlns="http://www.w3.org/2000/svg" class="absolute bottom-4 right-4 h-12 w-12 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 20h9"></path>
-                    <path d="M16.5 3.5a2.121 2.121 1.707 0 1 4.5 4.5L9 19.5 2 22l2.5-7L16.5 3.5z"></path>
-                </svg>
-            </div>
+<!-- Combined CSE & Civil Notes Card -->
+<section id="notes-sections" class="container mx-auto px-4 py-16 md:py-24">
+  <a href="notes.html" class="block group">
+    <div class="flex flex-col md:flex-row items-center bg-gray-800 rounded-xl shadow-lg p-6 md:p-10 mb-12 transition-transform transform group-hover:scale-[1.01]">
+      <div class="md:w-1/2 md:pr-10 mb-6 md:mb-0">
+        <!-- Image -->
+        <div class="w-full h-64 bg-gray-700 rounded-lg flex items-center justify-center p-4 relative overflow-hidden">
+          <img src="WELCOME.png" alt="CSE & Civil Notes" class="object-cover w-full h-full rounded-lg">
+         
         </div>
-        <div class="md:w-1/2">
-            <h2 class="text-3xl md:text-4xl font-bold playfair-display text-white mb-4">
-                CSE Notes
-            </h2>
-            <p class="text-gray-300 mb-6">
-                Dive into a world of algorithms, data structures, and programming concepts with our carefully prepared notes for 1st-year CSE.
-            </p>
-            <span class="inline-block bg-indigo-500 text-white font-semibold py-2 px-6 rounded-full shadow group-hover:bg-indigo-600 transition duration-300">
-                View CSE Notes
-            </span>
+      </div>
+      <div class="md:w-1/2 flex flex-col justify-between h-full">
+        <div>
+          <h2 class="text-3xl md:text-4xl font-bold playfair-display text-white mb-4">
+            B.E 1st Year Notes and PYQ's, Important YouTube Videos
+          </h2>
+          <p class="text-gray-300 mb-6">
+            Carefully crafted resources for both CSE & Civil Engineering students of Osmania University. Perfect for self-study, revisions, and exam prep.
+          </p>
         </div>
+        <div class="flex justify-center md:justify-center mt-auto">
+          <span class="inline-block bg-indigo-500 text-white font-semibold py-2 px-6 rounded-full shadow group-hover:bg-indigo-600 transition duration-300">
+            View Notes
+          </span>
+        </div>
+      </div>
     </div>
-</a>
+  </a>
+</section>
 
-<!-- Civil Section -->
-<div id="civil" class="flex flex-col md:flex-row items-center bg-gray-800 rounded-xl shadow-lg p-6 md:p-10">
-    <div class="md:w-1/2 md:pl-10 order-2 md:order-1 mt-6 md:mt-0">
-        <h2 class="text-3xl md:text-4xl font-bold playfair-display text-white mb-4">
-            Civil Engineering Notes
-        </h2>
-        <p class="text-gray-300 mb-6">
-            Build a strong foundation with our detailed notes on engineering mechanics, material science, and other essential civil engineering subjects.
-        </p>
-        <a href="notes.html" class="inline-block bg-indigo-500 text-white font-semibold py-2 px-6 rounded-full shadow hover:bg-indigo-600 transition duration-300">
-            View Civil Notes
-        </a>
-    </div>
-    <div class="md:w-1/2 order-1 md:order-2 mb-6 md:mb-0">
-        <a href="civil-notes.html" class="block w-full h-full">
-            <div class="w-full h-64 bg-gray-700 rounded-lg flex items-center justify-center p-4 relative overflow-hidden">
-                <img src="CVS.avif" alt="Civil Engineering" class="object-cover w-full h-full rounded-lg">
-                <p class="playfair-display text-2xl md:text-3xl text-gray-100 text-center absolute inset-0 flex items-center justify-center bg-black bg-opacity-40">
-                    Civil<br>Engineering<br>Concepts
-                </p>
-                <svg xmlns="http://www.w3.org/2000/svg" class="absolute bottom-4 right-4 h-12 w-12 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 20h9"></path>
-                    <path d="M16.5 3.5a2.121 2.121 1.707 0 1 4.5 4.5L9 19.5 2 22l2.5-7L16.5 3.5z"></path>
-                </svg>
-            </div>
-        </a>
-    </div>
-</div>
-
-        </section>
 
         <!-- Footer Section - More structured and visually distinct -->
         <footer id="footer" class="bg-gray-950 text-white py-16">
